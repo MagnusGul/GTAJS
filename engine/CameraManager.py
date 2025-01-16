@@ -8,12 +8,13 @@ class CameraManager:
         self.mouse_offset = (0, 0)  # Смещение от мыши
         self.width = width
         self.height =height
+        self.offset_multiply = 1
 
     def update(self, target_x, target_y, level_width, level_height):
         """Обновляет положение камеры с плавным переходом"""
         # Рассчитываем желаемую позицию камеры, центрированную на персонаже
-        desired_x = target_x - self.width // 2 + self.mouse_offset[0]
-        desired_y = target_y - self.height // 2 + self.mouse_offset[1]
+        desired_x = target_x - self.width // 2 + self.mouse_offset[0] * self.offset_multiply
+        desired_y = target_y - self.height // 2 + self.mouse_offset[1] * self.offset_multiply
 
         # Ограничиваем положение камеры в пределах уровня
         desired_x = max(0, min(desired_x, level_width - self.width))

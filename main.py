@@ -66,10 +66,11 @@ class Game(arcade.Window):
 
     def on_update(self, delta_time):
         """Обновление состояния игры"""
-        self.character.update()
+        self.character.update(mouse_pos=(self._mouse_x, self._mouse_y), cam_pos=self.camera_manager.camera.position)
         self.character.update_animation(delta_time)
         if self.character.move():
             self.camera_manager.camera.shake(pm.Vec2(1, 1))
+
 
         # Обновление камеры с учётом размеров уровня
         self.camera_manager.update(
@@ -122,6 +123,15 @@ class Game(arcade.Window):
         """Обрабатывает изменение размера окна"""
         super().on_resize(width, height)
         self.camera_manager.camera.resize(width, height)
+
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+        if button == arcade.MOUSE_BUTTON_RIGHT:
+            self.camera_manager.offset_multiply = 4
+
+    def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
+        if button == arcade.MOUSE_BUTTON_RIGHT:
+            self.camera_manager.offset_multiply = 1
+
 # Запуск игры
 if __name__ == "__main__":
     game = Game()
