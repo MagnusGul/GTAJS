@@ -7,7 +7,7 @@ SCREEN_TITLE = "Игра с ООП"
 
 # Константы карты
 TILE_SCALING = 2.0
-MAP_FILE = "C:\\Users\\Musa\\Chat\\GTAJS\\desertmap\\desert.tmx"
+MAP_FILE = "C:\\Users\\Musa\\Chat\\jumbulstan\\desertmap\\desert.tmx"
 
 # Константы персонажа
 CHARACTER_SCALING = 1.0
@@ -46,6 +46,10 @@ class Game(arcade.Window):
         self.character.center_x = 100
         self.character.center_y = 100
 
+        walls = self.tile_map_manager.get_wall_list()
+        self.physics_engine = arcade.PhysicsEngineSimple(self.character, walls)
+
+
     def on_draw(self):
         """Отрисовка экрана"""
         arcade.start_render()
@@ -81,9 +85,9 @@ class Game(arcade.Window):
         )
 
         # Проверка столкновений
-        if arcade.check_for_collision_with_list(self.character, self.tile_map_manager.wall_list):
-            self.character.change_x = 0
-            self.character.change_y = 0
+        # if arcade.check_for_collision_with_list(self.character, self.tile_map_manager.wall_list):
+        #     self.character.change_x = 0
+        #     self.character.change_y = 0
 
     def on_key_press(self, key, modifiers):
         """Обработка нажатий клавиш"""
