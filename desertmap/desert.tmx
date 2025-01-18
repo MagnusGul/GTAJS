@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="9">
+<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="9">
  <tileset firstgid="1" source="desert.tsx"/>
  <layer id="1" name="Ground" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmNkKwjAQRaN9cAPrAq5Yq3Xf6v9/nSM2VIbQJjEZR+nDwQZScrwztoORECLySBcIgZ7nc2y4KfyWDLx+Jb9nViNgDEwY+KioAXUgQN4+zpoCMwPmQAtoAx2CLFbA2oDEo9+hwG8DnIDtF/2K8ks086Tw2zH0uyMv7HcRr/6/EvvhnsPrsrxwX7rwU/0ODig/eV3mh3N1ld8eraWPaX6+64s9McesfrqcHfg1MpoifxcVEWjukyw+9AtFPl/I71pER3Of6j4bv7HI54s+MChhqLlPdZ/P3qMmFuo5h5NnTOhjM5tReN2yT51n5/v7J3F0vi46fk+ne7aX0i9l6If7mpufTX3f5wsqv9TAD2fJLT9VrTn7UeZnM5tR+v0LMQOHXwFnxe2/warGFRWf8QDjOLfP
+   eJztmGkLgkAQhrf60AXZAdlBZdlhl/r/f10jKcWw1OzmTlO48KCCsA/vjDq4VEotHdIDPKDveB8bYo3fSoDXr+SXZTUGfGAiwEdHDagDDeTtYq8pMDNgDrSBDtBlyGINbAwIHfpFL/y2wAnYfdHvVX4hMU8Ov71AvxR5Yb+Luvf/ldkP9xy+fpcX7ssy/HTPQYTyK87f+eFcy8rvgK4LH9P8XNcXe2KOef2onEvwa+a0FH0V3ywKiw/9PPWYL6iryMQEWz9fPeYL6hoAQ0NGln7U3uMmUPo5R5JnwOhjM5txeMX5kfLufP7+hCXtT4Xilzml+b2cfolAP9zX0vxs6vs8X3D5JQZ+OEtp+elqLdmPMz+b2YzT718IBDj8Cjgraf8GqxpXVHzGDdXNtqM=
   </data>
  </layer>
- <objectgroup id="2" name="Walls">
-  <object id="1" type="wall" x="113.818" y="494.848" width="287.636" height="68.7273">
-   <properties>
-    <property name="type" value="wall"/>
-   </properties>
-  </object>
-  <object id="8" type="wall" x="433.333" y="496.667" width="413.667" height="62.8333">
-   <properties>
-    <property name="type" value="wall"/>
-   </properties>
-  </object>
- </objectgroup>
+ <layer id="5" name="Walls" width="40" height="40">
+  <properties>
+   <property name="type" value="Wall"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzjESQAAQBMFFhAj//6v7wUXqBN1Vk08CAMBXlmpt2sbukr06ms6xu+Sq7qZn7A4AAIA/ewEmawEt
+  </data>
+ </layer>
 </map>

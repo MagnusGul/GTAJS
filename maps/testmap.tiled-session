@@ -1,0 +1,52 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "testmap.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#DALL·E 2025-01-18 16.24.48 - A set of 16x16 pixel art textures in a grid format, showcasing different materials_ sand, concrete, soil, grass, mud, and brick. Each texture is highl": {
+            "dynamicWrapping": false
+        },
+        "#sand": {
+            "dynamicWrapping": false
+        },
+        "#test_titles": {
+            "dynamicWrapping": true
+        },
+        "#textures": {
+            "dynamicWrapping": true
+        },
+        "C:/Users/Musa/Chat/jumbulstan/desertmap/desert.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.5
+        },
+        "testmap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 680,
+                "y": 409.33333333333337
+            }
+        },
+        "testmap.tmx#texture": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Musa/Chat/jumbulstan",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "testmap.tmx"
+    ],
+    "project": "testmap.tiled-project",
+    "recentFiles": [
+        "testmap.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.type": 0
+}

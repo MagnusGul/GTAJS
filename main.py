@@ -1,5 +1,3 @@
-import pyglet.math as pm
-
 from engine import *
 
 # Константы экрана
@@ -7,11 +5,11 @@ SCREEN_TITLE = "Игра с ООП"
 
 # Константы карты
 TILE_SCALING = 2.0
-MAP_FILE = "C:\\Users\\Musa\\Chat\\jumbulstan\\desertmap\\desert.tmx"
+MAP_FILE = "maps\\testmap.tmx"
 
 # Константы персонажа
 CHARACTER_SCALING = 1.0
-CHARACTER_SPEED = 5
+CHARACTER_SPEED = 2.5
 
 # Константы консоли
 CONSOLE_HEIGHT = 150
@@ -22,7 +20,6 @@ class Game(arcade.Window):
     def __init__(self):
         super().__init__(title=SCREEN_TITLE, fullscreen=True)
         arcade.set_background_color(arcade.color.AMAZON)
-        print(self.screen.width, self.screen.height)
         # Камера
         self.camera_manager = CameraManager(self.screen.width, self.screen.height)
 
@@ -71,9 +68,9 @@ class Game(arcade.Window):
     def on_update(self, delta_time):
         """Обновление состояния игры"""
         self.character.update(mouse_pos=(self._mouse_x, self._mouse_y), cam_pos=self.camera_manager.camera.position)
+        self.character.move()
+        self.physics_engine.update()
         self.character.update_animation(delta_time)
-        if self.character.move():
-            self.camera_manager.camera.shake(pm.Vec2(1, 1))
 
 
         # Обновление камеры с учётом размеров уровня
@@ -83,11 +80,6 @@ class Game(arcade.Window):
             self.level_width,
             self.level_height
         )
-
-        # Проверка столкновений
-        # if arcade.check_for_collision_with_list(self.character, self.tile_map_manager.wall_list):
-        #     self.character.change_x = 0
-        #     self.character.change_y = 0
 
     def on_key_press(self, key, modifiers):
         """Обработка нажатий клавиш"""
