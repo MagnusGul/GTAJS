@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "testmap.tmx",
+    "activeFile": "testmap/map.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "": {
@@ -26,6 +27,21 @@
             "dynamicWrapping": false,
             "scaleInDock": 1.5
         },
+        "desertmap/desert.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "map.tmx": {
+            "scale": 1.0727083333333334,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.09322198485137,
+                "y": 319.75140804039614
+            }
+        },
+        "map.tmx#texture": {
+            "scaleInDock": 1
+        },
         "testmap.tmx": {
             "scale": 0.75,
             "selectedLayer": 1,
@@ -36,16 +52,30 @@
         },
         "testmap.tmx#texture": {
             "scaleInDock": 1
+        },
+        "testmap/map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 662.6666666666665,
+                "y": 245.33333333333337
+            }
+        },
+        "testmap/map.tmx#texture": {
+            "scaleInDock": 1
         }
     },
     "last.imagePath": "C:/Users/Musa/Chat/jumbulstan",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "testmap.tmx"
+        "testmap/map.tmx"
     ],
     "project": "testmap.tiled-project",
+    "property.type": "int",
     "recentFiles": [
-        "testmap.tmx"
+        "testmap/map.tmx",
+        "testmap.tmx",
+        "map.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.type": 0

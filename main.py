@@ -1,51 +1,29 @@
 from engine import *
 
-# Константы экрана
-SCREEN_TITLE = "Игра с ООП"
-
-# Константы карты
-TILE_SCALING = 2.0
-MAP_FILE = "maps\\testmap.tmx"
-
-# Константы персонажа
-CHARACTER_SCALING = 1.0
-CHARACTER_SPEED = 2.5
-
-# Константы консоли
-CONSOLE_HEIGHT = 150
-FONT_SIZE = 14
-
-
 class Game(arcade.Window):
-    def __init__(self):
-        super().__init__(title=SCREEN_TITLE, fullscreen=True)
+    def __init__(
+        self,
+        screen_title="game",
+        font_size=14
+    ):
+        super().__init__(title=screen_title, fullscreen=True, vsync=True)
         arcade.set_background_color(arcade.color.AMAZON)
+
         # Камера
         self.camera_manager = CameraManager(self.screen.width, self.screen.height)
 
         # Консоль
-        self.console = Console(self.screen.width, self.screen.height, FONT_SIZE)
+        self.font_size = font_size
+        self.console = Console(self)
 
         # Карта
-        self.tile_map_manager = TileMapManager(MAP_FILE, TILE_SCALING)
-        self.tile_map_manager.load_map()
-
-        # Размеры уровня
-        self.level_width = self.tile_map_manager.tile_map.width * self.tile_map_manager.tile_map.tile_width * TILE_SCALING
-        self.level_height = self.tile_map_manager.tile_map.height * self.tile_map_manager.tile_map.tile_height * TILE_SCALING
-
+        self.tile_map_manager = TileMapManager()
         # Персонаж
-        self.character = Character(":resources:images/animated_characters/female_person/femalePerson_idle.png", CHARACTER_SCALING, CHARACTER_SPEED)
-        self.character.setup_animations([
-            ":resources:images/animated_characters/female_person/femalePerson_walk0.png",
-            ":resources:images/animated_characters/female_person/femalePerson_walk1.png",
-        ])
-        self.character.center_x = 100
-        self.character.center_y = 100
+        self.character = None
 
-        walls = self.tile_map_manager.get_wall_list()
-        self.physics_engine = arcade.PhysicsEngineSimple(self.character, walls)
-
+        self.character = load_character("girl")
+        self.character.physics_engine = arcade.PhysicsEngineSimple(self.character, self.tile_map_manager.wall_list)
+        self.tile_map_manager.load_map(self, "testmap", 2)
 
     def on_draw(self):
         """Отрисовка экрана"""
@@ -54,57 +32,61 @@ class Game(arcade.Window):
         # Использование камеры для карты и персонажей
         self.camera_manager.use()
 
-        # Отрисовка карты
+        # Отрисовка карты и персонажа
         self.tile_map_manager.draw()
-
-        # Отрисовка персонажа
-        self.character.draw()
+        if self.character is not None:
+            self.character.draw()
 
         # Отрисовка консоли
         if self.console.is_active:
             self.console.draw()
 
-
     def on_update(self, delta_time):
         """Обновление состояния игры"""
-        self.character.update(mouse_pos=(self._mouse_x, self._mouse_y), cam_pos=self.camera_manager.camera.position)
-        self.character.move()
-        self.physics_engine.update()
-        self.character.update_animation(delta_time)
+        if self.character is not None:
+            self.character.update(
+                mouse_pos=(self._mouse_x, self._mouse_y),
+                cam_pos=self.camera_manager.camera.position
+            )
+            self.character.move()
+            self.character.physics_engine.update()
+            self.character.update_animation(delta_time)
 
-
-        # Обновление камеры с учётом размеров уровня
-        self.camera_manager.update(
-            self.character.center_x,
-            self.character.center_y,
-            self.level_width,
-            self.level_height
-        )
+            # Обновление камеры с учётом размеров уровня
+            if self.tile_map_manager.tile_map is not None:
+                self.camera_manager.update(
+                    self.character.center_x,
+                    self.character.center_y,
+                    self.tile_map_manager.level_width,
+                    self.tile_map_manager.level_height
+                )
 
     def on_key_press(self, key, modifiers):
         """Обработка нажатий клавиш"""
-        if key == arcade.key.W:
-            self.character.move_dirs.up = True
-        elif key == arcade.key.S:
-            self.character.move_dirs.down = True
-        elif key == arcade.key.A:
-            self.character.move_dirs.left   = True
-        elif key == arcade.key.D:
-            self.character.move_dirs.right = True
+        if not self.console.is_active and self.character is not None:
+            movement_keys = {
+                arcade.key.W: "up",
+                arcade.key.S: "down",
+                arcade.key.A: "left",
+                arcade.key.D: "right"
+            }
+            if key in movement_keys:
+                setattr(self.character.move_dirs, movement_keys[key], True)
 
-        if key == arcade.key.F1:
-            self.console.is_active = not self.console.is_active
+        self.console.process_key_press(key)
+
 
     def on_key_release(self, key, modifiers):
         """Обработка отпусканий клавиш"""
-        if key == arcade.key.W:
-            self.character.move_dirs.up = False
-        elif key == arcade.key.S:
-            self.character.move_dirs.down = False
-        elif key == arcade.key.A:
-            self.character.move_dirs.left   = False
-        elif key == arcade.key.D:
-            self.character.move_dirs.right = False
+        if not self.console.is_active and self.character is not None:
+            movement_keys = {
+                arcade.key.W: "up",
+                arcade.key.S: "down",
+                arcade.key.A: "left",
+                arcade.key.D: "right"
+            }
+            if key in movement_keys:
+                setattr(self.character.move_dirs, movement_keys[key], False)
 
     def on_text(self, text):
         """Обработка текстового ввода"""
@@ -130,5 +112,5 @@ class Game(arcade.Window):
 
 # Запуск игры
 if __name__ == "__main__":
-    game = Game()
+    game = Game("Grand Thieves Almetyevs Jumbulstan Stories")
     arcade.run()
