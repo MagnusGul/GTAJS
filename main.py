@@ -72,6 +72,8 @@ class Game(arcade.Window):
             }
             if key in movement_keys:
                 setattr(self.character.move_dirs, movement_keys[key], True)
+            if key == arcade.key.LSHIFT:
+                self.character.is_running = True
 
         self.console.process_key_press(key)
 
@@ -87,6 +89,9 @@ class Game(arcade.Window):
             }
             if key in movement_keys:
                 setattr(self.character.move_dirs, movement_keys[key], False)
+
+            if key == arcade.key.LSHIFT:
+                self.character.is_running = False
 
     def on_text(self, text):
         """Обработка текстового ввода"""

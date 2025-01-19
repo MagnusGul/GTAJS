@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
  <properties>
-  <property name="player_pos_x" type="int" value="1000"/>
-  <property name="player_pos_y" type="int" value="300"/>
+  <property name="player_pos_x" type="int" value="64"/>
+  <property name="player_pos_y" type="int" value="64"/>
  </properties>
  <tileset firstgid="1" source="../../desertmap/desert.tsx"/>
  <tileset firstgid="49" name="texture" tilewidth="32" tileheight="32" tilecount="4" columns="2">

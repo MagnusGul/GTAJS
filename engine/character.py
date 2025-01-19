@@ -25,6 +25,7 @@ class Character(arcade.Sprite):
         self.animation_speed: float = 0.2  # Скорость анимации (в секундах на кадр)
         self.current_texture_index: int = 0  # Индекс текущей текстуры
         self.is_walking: bool = False  # Флаг, указывающий, ходит ли персонаж
+        self.is_running = False
 
         self.step_timer: float = 0  # Таймер для звуков шагов
 
@@ -36,6 +37,13 @@ class Character(arcade.Sprite):
             left: bool = False
 
         self.move_dirs = Dirs()
+        self.inertia_x: float = 0.0
+        self.inertia_y: float = 0.0
+        self.speed = speed
+        self.acceleration = 0.2
+        self.deceleration = 0.2
+        self.change_x: float = 0.0
+        self.change_y: float = 0.0
         self.physics_engine = None
 
     def update_animation(self, delta_time: float = 1 / 60):
@@ -96,27 +104,43 @@ class Character(arcade.Sprite):
 
     def move(self):
         """
-        Рассчитывает и устанавливает скорость персонажа на основе направлений движения.
+        Рассчитывает и устанавливает скорость персонажа на основе направлений движения с учетом инерции.
         """
-        # Сбрасываем текущую скорость
-        self.change_x = 0
-        self.change_y = 0
-
-        # Вычисляем направления движения
+        # Рассчитываем направления движения
         sin = int(self.move_dirs.up) - int(self.move_dirs.down)
         cos = int(self.move_dirs.right) - int(self.move_dirs.left)
-
-        # Обработка диагонального движения
-        if cos != 0 and sin != 0:
-            move_y = sin / math.sqrt(2)
-            move_x = cos / math.sqrt(2)
+        if sin != 0 and cos != 0:
+            # Нормализуем скорость при движении по диагонали
+            normalization_factor = math.sqrt(2) / 2
+            target_x = cos * self.speed * normalization_factor
+            target_y = sin * self.speed * normalization_factor
         else:
-            move_y = sin
-            move_x = cos
+            target_x = cos * self.speed
+            target_y = sin * self.speed
 
-        # Устанавливаем скорость движения
-        self.change_x = move_x * self.speed
-        self.change_y = move_y * self.speed
+        # Обновляем инерцию по оси X
+        if target_x != 0:
+            if (target_x > 0 and self.inertia_x < target_x) or (target_x < 0 and self.inertia_x > target_x):
+                self.inertia_x += self.acceleration * (1 if target_x > 0 else -1)
+        else:
+            if abs(self.inertia_x) > 0:
+                self.inertia_x -= self.deceleration * (1 if self.inertia_x > 0 else -1)
+                if abs(self.inertia_x) < self.deceleration:
+                    self.inertia_x = 0
+
+        # Обновляем инерцию по оси Y
+        if target_y != 0:
+            if (target_y > 0 and self.inertia_y < target_y) or (target_y < 0 and self.inertia_y > target_y):
+                self.inertia_y += self.acceleration * (1 if target_y > 0 else -1)
+        else:
+            if abs(self.inertia_y) > 0:
+                self.inertia_y -= self.deceleration * (1 if self.inertia_y > 0 else -1)
+                if abs(self.inertia_y) < self.deceleration:
+                    self.inertia_y = 0
+
+        # Устанавливаем текущие скорости
+        self.change_x = self.inertia_x
+        self.change_y = self.inertia_y
 
 
 def load_character(character_file: str) -> Character:
