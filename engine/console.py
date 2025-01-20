@@ -18,44 +18,60 @@ class Console:
         self.lines: list[str] = ["Добро пожаловать в консоль! Напишите 'help' для списка команд."]
         self.current_input: str = ""
         self.is_active: bool = False
+        self.showing_character_stats: bool = False
 
     def draw(self):
         """
         Рисует консоль на экране.
         """
-        camera = self.game.camera_manager.camera
-        y_offset = 40
+        if self.is_active:
+            camera = self.game.camera_manager.camera
+            y_offset = 40
 
-        # Рисуем фон консоли
-        arcade.draw_polygon_filled(
-            (
-                (camera.position[0], camera.position[1]),
-                (camera.position[0], 200 + camera.position[1]),
-                (self.game.camera_manager.width + camera.position[0], 200 + camera.position[1]),
-                (self.game.width + camera.position[0], camera.position[1])
-            ),
-            (0, 0, 0, 100)
-        )
+            # Рисуем фон консоли
+            arcade.draw_polygon_filled(
+                (
+                    (camera.position[0], camera.position[1]),
+                    (camera.position[0], 200 + camera.position[1]),
+                    (self.game.camera_manager.width + camera.position[0], 200 + camera.position[1]),
+                    (self.game.width + camera.position[0], camera.position[1])
+                ),
+                (0, 0, 0, 100)
+            )
 
-        # Рисуем строки текста консоли
-        for line in reversed(self.lines[-10:]):  # Отображаем последние 10 строк
+            # Рисуем строки текста консоли
+            for line in reversed(self.lines[-10:]):  # Отображаем последние 10 строк
+                arcade.draw_text(
+                    line,
+                    10 + camera.position[0],
+                    y_offset + camera.position[1],
+                    arcade.color.WHITE,
+                    self.font_size
+                )
+                y_offset += self.font_size + 2
+
+            # Рисуем текущий ввод пользователя
             arcade.draw_text(
-                line,
+                f"> {self.current_input}",
                 10 + camera.position[0],
-                y_offset + camera.position[1],
-                arcade.color.WHITE,
+                10 + camera.position[1],
+                arcade.color.YELLOW,
                 self.font_size
             )
-            y_offset += self.font_size + 2
+        if self.showing_character_stats:
+            camera = self.game.camera_manager.camera
 
-        # Рисуем текущий ввод пользователя
-        arcade.draw_text(
-            f"> {self.current_input}",
-            10 + camera.position[0],
-            10 + camera.position[1],
-            arcade.color.YELLOW,
-            self.font_size
-        )
+            lines = str(self.game.character).split("\n")
+            y_offset = 40
+            for line in lines:
+                arcade.draw_text(
+                    line,
+                    10 + camera.position[0],
+                    y_offset + camera.position[1],
+                    arcade.color.BLACK,
+                    self.font_size
+                )
+                y_offset += self.font_size + 2
 
     def process_key_press(self, key: int):
         """
@@ -113,6 +129,10 @@ class Console:
         if key == arcade.key.F1:
             # Включение/выключение консоли
             self.is_active = not self.is_active
+
+        if key == arcade.key.F2:
+            # Включение/выключение консоли
+            self.showing_character_stats = not self.showing_character_stats
 
     def append_text(self, text: str):
         """

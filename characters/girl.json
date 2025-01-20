@@ -2,6 +2,7 @@
   "image_idle": ":resources:images/animated_characters/female_person/femalePerson_idle.png",
   "scaling": 1,
   "speed": 1.6,
+  "run_speed": 3.2,
   "walk_textures": [
     ":resources:images/animated_characters/female_person/femalePerson_walk0.png",
     ":resources:images/animated_characters/female_person/femalePerson_walk1.png"

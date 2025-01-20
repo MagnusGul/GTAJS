@@ -54,11 +54,11 @@
             "scaleInDock": 1
         },
         "testmap/map.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 662.6666666666665,
-                "y": 245.33333333333337
+                "x": 587,
+                "y": 335
             }
         },
         "testmap/map.tmx#texture": {

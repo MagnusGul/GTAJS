@@ -38,8 +38,7 @@ class Game(arcade.Window):
             self.character.draw()
 
         # Отрисовка консоли
-        if self.console.is_active:
-            self.console.draw()
+        self.console.draw()
 
     def on_update(self, delta_time):
         """Обновление состояния игры"""
@@ -74,7 +73,6 @@ class Game(arcade.Window):
                 setattr(self.character.move_dirs, movement_keys[key], True)
             if key == arcade.key.LSHIFT:
                 self.character.is_running = True
-
         self.console.process_key_press(key)
 
 
@@ -117,5 +115,5 @@ class Game(arcade.Window):
 
 # Запуск игры
 if __name__ == "__main__":
-    game = Game("Grand Thieves Almetyevs Jumbulstan Stories")
+    game = Game("Grand Thieves Almetyevsk: Jumbulstan Stories")
     arcade.run()
